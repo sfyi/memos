@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import AppearanceSelect from "@/components/AppearanceSelect";
 import LocaleSelect from "@/components/LocaleSelect";
 import { authServiceClient } from "@/grpcweb";
+import { absolutifyLink } from "@/helpers/utils";
 import useLoading from "@/hooks/useLoading";
 import useNavigateTo from "@/hooks/useNavigateTo";
 import { useCommonContext } from "@/layouts/CommonContextProvider";
@@ -74,7 +75,11 @@ const SignUp = () => {
     <div className="py-4 sm:py-8 w-80 max-w-full min-h-[100svh] mx-auto flex flex-col justify-start items-center">
       <div className="w-full py-4 grow flex flex-col justify-center items-center">
         <div className="w-full flex flex-row justify-center items-center mb-6">
-          <img className="h-14 w-auto rounded-full shadow" src={workspaceGeneralSetting.customProfile?.logoUrl || "/logo.webp"} alt="" />
+          <img
+            className="h-14 w-auto rounded-full shadow"
+            src={workspaceGeneralSetting.customProfile?.logoUrl || absolutifyLink("/logo.webp")}
+            alt=""
+          />
           <p className="ml-2 text-5xl text-black opacity-80 dark:text-gray-200">
             {workspaceGeneralSetting.customProfile?.title || "Memos"}
           </p>

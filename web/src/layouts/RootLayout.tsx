@@ -5,6 +5,7 @@ import { Suspense, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import useLocalStorage from "react-use/lib/useLocalStorage";
 import Navigation from "@/components/Navigation";
+import { absolutifyLink } from "@/helpers/utils";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useResponsiveWidth from "@/hooks/useResponsiveWidth";
 import Loading from "@/pages/Loading";
@@ -24,7 +25,7 @@ const RootLayout = () => {
   useEffect(() => {
     if (!currentUser) {
       if (([Routes.ROOT, Routes.RESOURCES, Routes.INBOX, Routes.ARCHIVED, Routes.SETTING] as string[]).includes(location.pathname)) {
-        window.location.href = Routes.EXPLORE;
+        window.location.href = absolutifyLink(Routes.EXPLORE);
         return;
       }
     }

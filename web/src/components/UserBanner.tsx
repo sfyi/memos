@@ -2,6 +2,7 @@ import { Dropdown, Menu, MenuButton, MenuItem } from "@mui/joy";
 import clsx from "clsx";
 import { LogOutIcon, SmileIcon } from "lucide-react";
 import { authServiceClient } from "@/grpcweb";
+import { absolutifyLink } from "@/helpers/utils";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useNavigateTo from "@/hooks/useNavigateTo";
 import { Routes } from "@/router";
@@ -24,11 +25,11 @@ const UserBanner = (props: Props) => {
   const workspaceGeneralSetting =
     workspaceSettingStore.getWorkspaceSettingByKey(WorkspaceSettingKey.GENERAL).generalSetting || WorkspaceGeneralSetting.fromPartial({});
   const title = (user ? user.nickname || user.username : workspaceGeneralSetting.customProfile?.title) || "Memos";
-  const avatarUrl = (user ? user.avatarUrl : workspaceGeneralSetting.customProfile?.logoUrl) || "/logo.webp";
+  const avatarUrl = (user ? user.avatarUrl : workspaceGeneralSetting.customProfile?.logoUrl) || absolutifyLink("/logo.webp");
 
   const handleSignOut = async () => {
     await authServiceClient.signOut({});
-    window.location.href = "/auth";
+    window.location.href = absolutifyLink("/auth");
   };
 
   return (

@@ -3,6 +3,7 @@ import Textarea from "@mui/joy/Textarea/Textarea";
 import { XIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { absolutifyLink } from "@/helpers/utils";
 import { workspaceSettingNamePrefix, useWorkspaceSettingStore } from "@/store/v1";
 import { WorkspaceCustomProfile, WorkspaceGeneralSetting } from "@/types/proto/api/v1/workspace_setting_service";
 import { WorkspaceSettingKey } from "@/types/proto/store/workspace_setting";
@@ -69,7 +70,7 @@ const UpdateCustomizedProfileDialog: React.FC<Props> = ({ destroy }: Props) => {
   const handleRestoreButtonClick = () => {
     setPartialState({
       title: "Memos",
-      logoUrl: "/logo.webp",
+      logoUrl: absolutifyLink("/logo.webp"),
       description: "",
       locale: "en",
       appearance: "system",

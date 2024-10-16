@@ -1,6 +1,6 @@
 export function absolutifyLink(rel: string): string {
   const anchor = document.createElement("a");
-  anchor.setAttribute("href", rel);
+  anchor.setAttribute("href", import.meta.env.BASE_URL + rel.slice(1));
   return anchor.href;
 }
 
