@@ -51,8 +51,8 @@ const DEFAULT_CENTER_LAT_LNG = new LatLng(48.8584, 2.2945);
 const LeafletMap = (props: MapProps) => {
   const position = props.latlng || DEFAULT_CENTER_LAT_LNG;
   return (
-    <MapContainer className="w-full h-72" center={position} zoom={13} scrollWheelZoom={false}>
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+    <MapContainer className="w-full h-72" center={position} zoom={14} scrollWheelZoom={false}>
+      <TileLayer url="https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}" subdomains="1234" />
       <LocationMarker position={position} readonly={props.readonly} onChange={props.onChange ? props.onChange : () => {}} />
     </MapContainer>
   );
