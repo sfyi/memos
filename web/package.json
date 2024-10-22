@@ -2,8 +2,8 @@
   "name": "memos",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "release": "vite build --mode release --outDir=../server/router/frontend/dist --emptyOutDir",
+    "build": "vite build --base=/memos/ --outDir=memos --emptyOutDir",
+    "release": "npm run build && zip -qrm ~/Downloads/memos.zip memos",
     "lint": "eslint --ext .js,.ts,.tsx, src",
     "type-check": "tsc --noEmit --skipLibCheck",
     "postinstall": "cd ../proto && buf generate"
