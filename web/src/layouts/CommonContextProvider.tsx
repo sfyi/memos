@@ -4,6 +4,7 @@ import { workspaceServiceClient } from "@/grpcweb";
 import { useUserStore, useWorkspaceSettingStore } from "@/store/v1";
 import { WorkspaceProfile } from "@/types/proto/api/v1/workspace_service";
 import { WorkspaceGeneralSetting, WorkspaceSettingKey } from "@/types/proto/store/workspace_setting";
+import { findNearestMatchedLanguage } from "@/utils/i18n";
 
 interface Context {
   locale: string;
@@ -30,7 +31,7 @@ const CommonContextProvider = ({ children }: { children: React.ReactNode }) => {
     appearance: "system",
     profile: WorkspaceProfile.fromPartial({}),
   });
-  const [locale] = useLocalStorage("locale", "en");
+  const [locale] = useLocalStorage("locale", findNearestMatchedLanguage(navigator.language));
   const [appearance] = useLocalStorage("appearance", "system");
 
   useEffect(() => {

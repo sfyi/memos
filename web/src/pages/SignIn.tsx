@@ -28,7 +28,7 @@ const SignIn = () => {
   // Redirect to root page if already signed in.
   useEffect(() => {
     if (currentUser) {
-      window.location.href = Routes.ROOT;
+      window.location.href = absolutifyLink(Routes.ROOT);
     }
   }, []);
 
