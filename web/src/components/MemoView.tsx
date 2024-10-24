@@ -3,9 +3,9 @@ import clsx from "clsx";
 import { BookmarkIcon, MessageCircleMoreIcon } from "lucide-react";
 import { memo, useCallback, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { absolutifyLink } from "@/helpers/utils";
 import useAsyncEffect from "@/hooks/useAsyncEffect";
 import useCurrentUser from "@/hooks/useCurrentUser";
-import useNavigateTo from "@/hooks/useNavigateTo";
 import { useUserStore, useWorkspaceSettingStore, useMemoStore } from "@/store/v1";
 import { MemoRelation_Type } from "@/types/proto/api/v1/memo_relation_service";
 import { Memo, Visibility } from "@/types/proto/api/v1/memo_service";
@@ -40,10 +40,8 @@ const MemoView: React.FC<Props> = (props: Props) => {
   const { memo, className } = props;
   const t = useTranslate();
   const location = useLocation();
-  const navigateTo = useNavigateTo();
   const currentUser = useCurrentUser();
   const userStore = useUserStore();
-  const user = useCurrentUser();
   const memoStore = useMemoStore();
   const workspaceSettingStore = useWorkspaceSettingStore();
   const [showEditor, setShowEditor] = useState<boolean>(false);
@@ -57,7 +55,7 @@ const MemoView: React.FC<Props> = (props: Props) => {
     (relation) => relation.type === MemoRelation_Type.COMMENT && relation.relatedMemo?.name === memo.name,
   ).length;
   const relativeTimeFormat = Date.now() - memo.displayTime!.getTime() > 1000 * 60 * 60 * 24 ? "datetime" : "auto";
-  const readonly = memo.creator !== user?.name && !isSuperUser(user);
+  const readonly = memo.creator !== currentUser?.name && !isSuperUser(currentUser);
   const isInMemoDetailPage = location.pathname.startsWith(`/m/${memo.uid}`);
 
   // Initial related data: creator.
@@ -66,9 +64,9 @@ const MemoView: React.FC<Props> = (props: Props) => {
     setCreator(user);
   }, []);
 
-  const handleGotoMemoDetailPage = useCallback(() => {
-    navigateTo(`/m/${memo.uid}`);
-  }, [memo.uid]);
+  const handleGotoMemoDetailPage = () => {
+    window.open(absolutifyLink(`/m/${memo.uid}`));
+  };
 
   const handleMemoContentClick = useCallback(async (e: React.MouseEvent) => {
     const targetEl = e.target as HTMLElement;
@@ -213,6 +211,7 @@ const MemoView: React.FC<Props> = (props: Props) => {
             memoName={memo.name}
             nodes={memo.nodes}
             readonly={readonly}
+            disableFilter={isInMemoDetailPage}
             onClick={handleMemoContentClick}
             onDoubleClick={handleMemoContentDoubleClick}
             compact={props.compact && workspaceMemoRelatedSetting.enableAutoCompact}

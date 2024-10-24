@@ -10,6 +10,7 @@ import MemoView from "@/components/MemoView";
 import MobileHeader from "@/components/MobileHeader";
 import PagedMemoList from "@/components/PagedMemoList";
 import UserAvatar from "@/components/UserAvatar";
+import { absolutifyLink } from "@/helpers/utils";
 import useLoading from "@/hooks/useLoading";
 import { useMemoFilterStore, useUserStore } from "@/store/v1";
 import { RowStatus } from "@/types/proto/api/v1/common";
@@ -76,7 +77,7 @@ const UserProfile = () => {
       return;
     }
 
-    copy(`${window.location.origin}/u/${encodeURIComponent(user.username)}`);
+    copy(absolutifyLink(`/u/${encodeURIComponent(user.username)}`));
     toast.success(t("message.copied"));
   };
 

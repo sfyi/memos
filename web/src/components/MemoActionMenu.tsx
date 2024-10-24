@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { useLocation } from "react-router-dom";
+import { absolutifyLink } from "@/helpers/utils";
 import useNavigateTo from "@/hooks/useNavigateTo";
 import { useMemoStore } from "@/store/v1";
 import { RowStatus } from "@/types/proto/api/v1/common";
@@ -98,7 +99,7 @@ const MemoActionMenu = (props: Props) => {
   };
 
   const handleCopyLink = () => {
-    copy(`${window.location.origin}/m/${memo.uid}`);
+    copy(absolutifyLink(`/m/${memo.uid}`));
     toast.success(t("message.succeed-copy-link"));
   };
 
