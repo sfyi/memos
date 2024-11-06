@@ -281,7 +281,7 @@ func (s *APIV1Service) UpdateMemo(ctx context.Context, request *v1pb.UpdateMemoR
 		} else if path == "uid" {
 			update.UID = &request.Memo.Uid
 			if !util.UIDMatcher.MatchString(*update.UID) {
-				return nil, status.Errorf(codes.InvalidArgument, "invalid resource name")
+				return nil, status.Errorf(codes.InvalidArgument, "invalid uid")
 			}
 		} else if path == "visibility" {
 			workspaceMemoRelatedSetting, err := s.Store.GetWorkspaceMemoRelatedSetting(ctx)
