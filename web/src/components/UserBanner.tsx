@@ -38,11 +38,11 @@ const UserBanner = (props: Props) => {
         <MenuButton disabled={!user} slots={{ root: "div" }}>
           <div
             className={clsx(
-              "py-1 my-1 w-auto flex flex-row justify-start items-center cursor-pointer rounded-2xl border border-transparent text-gray-800 dark:text-gray-400",
+              "py-1 my-1 w-auto flex flex-row justify-start items-center cursor-pointer text-gray-800 dark:text-gray-400",
               collapsed ? "px-1" : "px-3",
             )}
           >
-            <UserAvatar className="shadow shrink-0" avatarUrl={avatarUrl} />
+            <UserAvatar className="shrink-0" avatarUrl={avatarUrl} />
             {!collapsed && <span className="ml-2 text-lg font-medium text-slate-800 dark:text-gray-300 shrink truncate">{title}</span>}
           </div>
         </MenuButton>

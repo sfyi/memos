@@ -38,4 +38,13 @@ export default defineConfig({
       "@/": `${resolve(__dirname, "src")}/`,
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: "app.[hash].js",
+        chunkFileNames: "assets/chunk-vendors.[hash].js",
+        assetFileNames: "assets/[name].[hash][extname]",
+      },
+    },
+  },
 });

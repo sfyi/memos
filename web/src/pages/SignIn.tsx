@@ -1,4 +1,5 @@
-import { Button, Divider } from "@mui/joy";
+import { Divider } from "@mui/joy";
+import { Button } from "@usememos/mui";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -88,7 +89,7 @@ const SignIn = () => {
         {!workspaceGeneralSetting.disallowUserRegistration && !workspaceGeneralSetting.disallowPasswordAuth && (
           <p className="w-full mt-4 text-sm">
             <span className="dark:text-gray-500">{t("auth.sign-up-tip")}</span>
-            <Link to="/auth/signup" className="cursor-pointer ml-2 text-blue-600 hover:underline" unstable_viewTransition>
+            <Link to="/auth/signup" className="cursor-pointer ml-2 text-blue-600 hover:underline" viewTransition>
               {t("common.sign-up")}
             </Link>
           </p>
@@ -101,9 +102,7 @@ const SignIn = () => {
                 <Button
                   key={identityProvider.name}
                   variant="outlined"
-                  color="neutral"
-                  className="w-full"
-                  size="md"
+                  fullWidth
                   onClick={() => handleSignInWithIdentityProvider(identityProvider)}
                 >
                   {t("common.sign-in-with", { provider: identityProvider.title })}
