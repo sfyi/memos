@@ -93,7 +93,7 @@ const SignUp = () => {
                 <div className="w-full flex flex-col justify-start items-start">
                   <span className="leading-8 text-gray-600">{t("common.username")}</span>
                   <Input
-                    className="w-full"
+                    className="w-full bg-white dark:bg-black"
                     size="lg"
                     type="text"
                     readOnly={actionBtnLoadingState.isLoading}
@@ -109,7 +109,7 @@ const SignUp = () => {
                 <div className="w-full flex flex-col justify-start items-start">
                   <span className="leading-8 text-gray-600">{t("common.password")}</span>
                   <Input
-                    className="w-full"
+                    className="w-full bg-white dark:bg-black"
                     size="lg"
                     type="password"
                     readOnly={actionBtnLoadingState.isLoading}

@@ -1616,6 +1616,8 @@ paths:
               memoVisibility:
                 type: string
                 description: The default visibility of the memo.
+            required:
+              - setting
       tags:
         - UserService
   /api/v1/{user.name}:
@@ -1672,6 +1674,8 @@ paths:
               updateTime:
                 type: string
                 format: date-time
+            required:
+              - user
       tags:
         - UserService
   /file/{name}/avatar:
