@@ -260,6 +260,10 @@ func (s *APIV1Service) UpdateMemo(ctx context.Context, request *v1pb.UpdateMemoR
 		ID:        id,
 		UpdatedTs: &currentTs,
 	}
+
+	payloadModified := false
+	payload := memo.Payload
+
 	for _, path := range request.UpdateMask.Paths {
 		if path == "content" {
 			contentLengthLimit, err := s.getContentLengthLimit(ctx)
@@ -275,9 +279,8 @@ func (s *APIV1Service) UpdateMemo(ctx context.Context, request *v1pb.UpdateMemoR
 			if err != nil {
 				return nil, status.Errorf(codes.Internal, "failed to get memo property: %v", err)
 			}
-			payload := memo.Payload
+			payloadModified = true
 			payload.Property = property
-			update.Payload = payload
 		} else if path == "uid" {
 			update.UID = &request.Memo.Uid
 			if !util.UIDMatcher.MatchString(*update.UID) {
@@ -334,11 +337,16 @@ func (s *APIV1Service) UpdateMemo(ctx context.Context, request *v1pb.UpdateMemoR
 			if err != nil {
 				return nil, errors.Wrap(err, "failed to set memo relations")
 			}
-		} else if path == "location" {
-			payload := memo.Payload
-			payload.Location = convertLocationToStore(request.Memo.Location)
-			update.Payload = payload
 		}
+	}
+
+	if request.Memo.Location != nil {
+		payloadModified = true
+		payload.Location = convertLocationToStore(request.Memo.Location)
+	}
+
+	if payloadModified {
+		update.Payload = payload
 	}
 
 	if err = s.Store.UpdateMemo(ctx, update); err != nil {
